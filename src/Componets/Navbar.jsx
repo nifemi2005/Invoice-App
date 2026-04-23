@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../assets/logo.png";
+import Logo from "../assets/Logo.png";
 import { BsMoon, BsSun } from "react-icons/bs";
 import { useTheme } from "../Context/ThemeContext";
 

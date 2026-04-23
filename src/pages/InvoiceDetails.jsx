@@ -56,10 +56,11 @@ const InvoiceDetails = () => {
   const handleDelete = () => { deleteInvoice(id); navigate("/"); };
 
   return (
-    <div className="bg-(--bg-body) min-h-screen transition-colors duration-200">
+    <div className="bg-(--bg-body) min-h-screen transition-colors duration-200 flex flex-col">
       <Navbar />
 
-      <div className="px-6 py-8 pb-24 max-w-2xl mx-auto">
+      {/* Scrollable content */}
+      <div className="flex-1 overflow-y-auto px-6 py-8 pb-6 max-w-2xl w-full mx-auto">
 
         {/* Go back */}
         <button onClick={() => navigate(-1)} className="flex items-center gap-3 mb-8 group">
@@ -81,35 +82,33 @@ const InvoiceDetails = () => {
           {/* Invoice ID + description */}
           <div>
             <p className="font-bold text-(--color-text)">
-              <span className="text-(--color-muted)">#</span>{id}
+              <span className="text-[#7C5CBF]">#</span>{id}
             </p>
             <p className="text-sm text-(--color-muted) mt-1">{description || "—"}</p>
           </div>
 
           {/* Sender address */}
-          <div>
-            <p className="text-xs text-(--color-muted) mb-2">Bill From</p>
-            <AddressBlock address={senderAddress} />
-          </div>
+          <AddressBlock address={senderAddress} />
 
           {/* Dates + Bill To — 2-col grid */}
           <div className="grid grid-cols-2 gap-6">
-            <InfoRow label="Invoice Date"  value={fmtDate(invoiceDate)} />
+            <div className="flex flex-col gap-6">
+              <InfoRow label="Invoice Date"  value={fmtDate(invoiceDate)} />
+              <InfoRow label="Payment Due"   value={fmtDate(paymentDue)} />
+            </div>
             <div>
               <p className="text-xs text-(--color-muted) mb-1">Bill To</p>
               <p className="font-bold text-sm text-(--color-text) mb-2">{clientName || "—"}</p>
               <AddressBlock address={clientAddress} />
             </div>
-            <InfoRow label="Payment Due" value={fmtDate(paymentDue)} />
           </div>
 
           {/* Email */}
-          <InfoRow label="Sent To" value={clientEmail} />
+          <InfoRow label="Sent to" value={clientEmail} />
         </div>
 
         {/* ── Items card ── */}
-        <div className="bg-(--bg-card) rounded-lg overflow-hidden mb-6">
-          {/* Items list */}
+        <div className="bg-(--bg-card) rounded-lg overflow-hidden mb-4">
           <div className="p-6 flex flex-col gap-5">
             {items.length > 0 ? (
               items.map((item, i) => (
@@ -130,31 +129,33 @@ const InvoiceDetails = () => {
             )}
           </div>
 
-          {/* Amount due */}
+          {/* Grand total */}
           <div className="bg-(--bg-total) px-6 py-6 flex items-center justify-between rounded-b-lg">
-            <p className="text-sm text-white/70">Amount Due</p>
+            <p className="text-sm text-white/70">Grand Total</p>
             <p className="text-2xl font-bold text-white">{fmtCurrency(total)}</p>
           </div>
         </div>
+      </div>
 
-        {/* ── Action buttons ── */}
-        <div className="flex items-center justify-end gap-2">
-          <button
-            onClick={() => navigate(`/invoice/${id}/edit`)}
-            className="px-5 py-4 rounded-full text-sm font-bold bg-(--bg-card) text-(--color-muted) hover:opacity-80 transition-opacity"
-          >
-            Edit
-          </button>
+      {/* ── Sticky action bar ── */}
+      <div className="sticky bottom-0 bg-(--bg-card) px-6 py-5 flex items-center justify-between gap-2 shadow-[0_-4px_16px_rgba(0,0,0,0.06)] max-w-2xl w-full mx-auto">
+        <button
+          onClick={() => navigate(`/invoice/${id}/edit`)}
+          className="text-sm font-bold text-(--color-muted) hover:text-(--color-text) transition-colors px-2"
+        >
+          Edit
+        </button>
+        <div className="flex items-center gap-2">
           <button
             onClick={() => setShowDelete(true)}
-            className="px-5 py-4 rounded-full text-sm font-bold bg-red-500 text-white hover:bg-red-400 transition-colors"
+            className="px-6 py-4 rounded-full text-sm font-bold bg-red-500 text-white hover:bg-red-400 transition-colors"
           >
             Delete
           </button>
           {status === "pending" && (
             <button
               onClick={markAsPaid}
-              className="px-5 py-4 rounded-full text-sm font-bold bg-[#7C5CBF] text-white hover:bg-[#9277FF] transition-colors"
+              className="px-6 py-4 rounded-full text-sm font-bold bg-[#7C5CBF] text-white hover:bg-[#9277FF] transition-colors"
             >
               Mark as Paid
             </button>
