@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, useParams } from "react-router-dom";
-import Navbar from "../Componets/Navbar";
+import Layout from "../Componets/Layout";
 import InvoiceForm from "../Componets/InvoiceForm";
 import { useInvoices } from "../Context/InvoiceContext";
 
@@ -12,10 +12,9 @@ const EditInvoice = () => {
   if (!invoice) return <Navigate to="/" replace />;
 
   return (
-    <div>
-      <Navbar />
+    <Layout>
       <InvoiceForm mode="edit" initialData={invoice} />
-    </div>
+    </Layout>
   );
 };
 

@@ -1,12 +1,11 @@
 import React from "react";
-import Navbar from "../Componets/Navbar";
+import Layout from "../Componets/Layout";
 import InvoiceForm from "../Componets/InvoiceForm";
 
 const NewInvoice = () => (
-  <div>
-    <Navbar />
+  <Layout>
     <InvoiceForm mode="create" />
-  </div>
+  </Layout>
 );
 
 export default NewInvoice;

@@ -1,15 +1,14 @@
 import React from 'react'
-import Navbar from '../Componets/Navbar'
+import Layout from '../Componets/Layout'
 import InvoiceList from '../Componets/InvoiceList'
 import { useInvoices } from '../Context/InvoiceContext'
 
 const Home = () => {
   const { invoices } = useInvoices()
   return (
-    <div>
-      <Navbar />
+    <Layout>
       <InvoiceList invoices={invoices} />
-    </div>
+    </Layout>
   )
 }
 

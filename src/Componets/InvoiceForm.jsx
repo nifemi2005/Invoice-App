@@ -171,7 +171,7 @@ const InvoiceForm = ({ mode = "create", initialData = null }) => {
     <div className="bg-(--bg-body) min-h-screen flex flex-col transition-colors duration-200">
 
       {/* ── Scrollable body ── */}
-      <div className="flex-1 overflow-y-auto px-6 pt-8 pb-36">
+      <div className="flex-1 overflow-y-auto px-6 md:px-10 lg:px-16 pt-8 pb-36 max-w-3xl mx-auto w-full">
 
         {/* Go back */}
         <button onClick={() => navigate(-1)} className="flex items-center gap-3 mb-6 group">

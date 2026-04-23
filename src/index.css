@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: hidden; max-width: 100vw; }
+
 :root {
   --bg-body:   #F8F8FB;
   --bg-nav:    #373B53;
@@ -10,6 +13,7 @@
   --draft-color: #373B53;
   --draft-bg:    rgba(55, 59, 83, 0.06);
   --bg-total:    #373B53;
+  --bg-surface:  #F3F3F8;
 }
 
 [data-theme="dark"] {
@@ -22,6 +26,7 @@
   --draft-color: #DFE3FA;
   --draft-bg:    rgba(223, 227, 250, 0.06);
   --bg-total:    #0C0E16;
+  --bg-surface:  #252945;
 }
 
 [data-theme="dark"] input,

@@ -47,7 +47,7 @@ const InvoiceList = ({ invoices = [] }) => {
       : `${invoices.length} invoice${invoices.length > 1 ? "s" : ""}`;
 
   return (
-    <div className="min-h-screen bg-(--bg-body) px-6 py-8 transition-colors duration-200">
+    <div className="min-h-screen bg-(--bg-body) px-6 py-8 transition-colors duration-200 max-w-3xl mx-auto w-full">
       {/* Header */}
       <div className="flex items-center justify-between mb-10">
         <div>
