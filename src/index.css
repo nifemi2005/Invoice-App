@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+:root {
+  --bg-body:   #F8F8FB;
+  --bg-nav:    #373B53;
+  --bg-card:   #FFFFFF;
+  --color-text:   #0C0E16;
+  --color-muted:  #888EB0;
+  --color-border: #DFE3FA;
+  --draft-color: #373B53;
+  --draft-bg:    rgba(55, 59, 83, 0.06);
+}
+
+[data-theme="dark"] {
+  --bg-body:   #141625;
+  --bg-nav:    #1E2139;
+  --bg-card:   #1E2139;
+  --color-text:   #FFFFFF;
+  --color-muted:  #DFE3FA;
+  --color-border: #252945;
+  --draft-color: #DFE3FA;
+  --draft-bg:    rgba(223, 227, 250, 0.06);
+}
