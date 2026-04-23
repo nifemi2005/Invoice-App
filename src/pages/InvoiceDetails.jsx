@@ -29,9 +29,7 @@ const InfoRow = ({ label, value }) => (
 const AddressBlock = ({ address, alignRight = false }) => {
   if (!address)
     return (
-      <p
-        className={`text-sm text-(--color-muted) ${alignRight ? "text-right" : ""}`}
-      >
+      <p className={`text-sm text-(--color-muted) ${alignRight ? "text-right" : ""}`}>
         —
       </p>
     );
@@ -102,145 +100,109 @@ const InvoiceDetails = () => {
 
   return (
     <Layout>
-      {/* pb-28 on mobile leaves room for the sticky footer */}
-      <div className="bg-(--bg-body)">
-        <div className="">
-          <div className="min-h-screen bg-(--bg-body) transition-colors duration-200 px-6 py-8 pb-28 lg:pb-12 lg:px-8 lg:py-12 max-w-3xl mx-auto">
-            {/* Go back */}
-            <button
-              onClick={() => navigate(-1)}
-              className="flex items-center gap-3 mb-8 group"
-            >
-              <span className="text-[#7C5CBF] text-lg leading-none">‹</span>
-              <span className="font-bold text-sm text-(--color-text) group-hover:text-(--color-muted) transition-colors">
-                Go back
-              </span>
-            </button>
+      <div className="min-h-screen bg-(--bg-body) transition-colors duration-200 px-6 py-8 pb-28 lg:pb-12 lg:px-8 lg:py-12 max-w-[900px] mx-auto">
 
-            {/* Status bar — mobile: status only | desktop: status + action buttons */}
-            <div className="bg-(--bg-card) rounded-lg px-6 py-5 flex items-center justify-between mb-4">
-              <div className="flex items-center gap-4">
-                <span className="text-sm text-(--color-muted)">Status</span>
-                <StatusBadge status={status} />
-              </div>
-              {/* Action buttons — desktop only */}
-              <div className="hidden lg:flex items-center gap-2">
-                <ActionButtons />
-              </div>
+        {/* Go back */}
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-3 mb-8 group"
+        >
+          <span className="text-[#7C5CBF] text-lg leading-none">‹</span>
+          <span className="font-bold text-sm text-(--color-text) group-hover:text-(--color-muted) transition-colors">
+            Go back
+          </span>
+        </button>
+
+        {/* Status bar */}
+        <div className="bg-(--bg-card) rounded-lg px-6 py-5 flex items-center justify-between mb-4">
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-(--color-muted)">Status</span>
+            <StatusBadge status={status} />
+          </div>
+          <div className="hidden lg:flex items-center gap-2">
+            <ActionButtons />
+          </div>
+        </div>
+
+        {/* Invoice info card */}
+        <div className="bg-(--bg-card) rounded-lg p-6 lg:p-8 mb-4">
+          <div className="flex justify-between items-start mb-8">
+            <div>
+              <p className="font-bold text-(--color-text) mb-1">
+                <span className="text-[#7C5CBF]">#</span>{id}
+              </p>
+              <p className="text-sm text-(--color-muted)">{description || "—"}</p>
             </div>
+            <AddressBlock address={senderAddress} alignRight />
+          </div>
 
-            {/* Main info card */}
-            <div className="bg-(--bg-card) rounded-lg p-6 lg:p-8 mb-4">
-              {/* ID + description | sender address */}
-              <div className="flex justify-between items-start mb-8">
-                <div>
-                  <p className="font-bold text-(--color-text) mb-1">
-                    <span className="text-[#7C5CBF]">#</span>
-                    {id}
-                  </p>
-                  <p className="text-sm text-(--color-muted)">
-                    {description || "—"}
-                  </p>
-                </div>
-                <AddressBlock address={senderAddress} alignRight />
-              </div>
-
-              {/* Info grid — 2-col on mobile/tablet, 3-col on desktop */}
-              <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="flex flex-col gap-6">
-                  <InfoRow label="Invoice Date" value={fmtDate(invoiceDate)} />
-                  <InfoRow label="Payment Due" value={fmtDate(paymentDue)} />
-                </div>
-                <div>
-                  <p className="text-xs text-(--color-muted) mb-2">Bill To</p>
-                  <p className="font-bold text-sm text-(--color-text) mb-2">
-                    {clientName || "—"}
-                  </p>
-                  <AddressBlock address={clientAddress} />
-                </div>
-                {/* Sent to — spans 2 cols on mobile to sit in its own row */}
-                <div className="col-span-2 lg:col-span-1">
-                  <InfoRow label="Sent to" value={clientEmail} />
-                </div>
-              </div>
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="flex flex-col gap-6">
+              <InfoRow label="Invoice Date" value={fmtDate(invoiceDate)} />
+              <InfoRow label="Payment Due" value={fmtDate(paymentDue)} />
             </div>
-
-            {/* Items card */}
-            <div className="bg-(--bg-card) rounded-lg overflow-hidden mb-4">
-              <div className="bg-(--bg-surface) p-6 lg:p-8">
-                {/* Table header — desktop only */}
-                <div className="hidden lg:grid grid-cols-[1fr_80px_120px_120px] gap-4 mb-5">
-                  <span className="text-xs text-(--color-muted)">
-                    Item Name
-                  </span>
-                  <span className="text-xs text-(--color-muted) text-center">
-                    QTY.
-                  </span>
-                  <span className="text-xs text-(--color-muted) text-right">
-                    Price
-                  </span>
-                  <span className="text-xs text-(--color-muted) text-right">
-                    Total
-                  </span>
-                </div>
-
-                {items.length > 0 ? (
-                  <div className="flex flex-col gap-5">
-                    {items.map((item, i) => (
-                      <div key={i}>
-                        {/* Mobile: stacked name + qty×price / total */}
-                        <div className="flex items-center justify-between lg:hidden">
-                          <div>
-                            <p className="font-bold text-sm text-(--color-text)">
-                              {item.name || "—"}
-                            </p>
-                            <p className="text-sm font-bold text-(--color-muted) mt-1">
-                              {item.quantity} &times; {fmtCurrency(item.price)}
-                            </p>
-                          </div>
-                          <p className="font-bold text-sm text-(--color-text)">
-                            {fmtCurrency(
-                              item.total ?? item.quantity * item.price,
-                            )}
-                          </p>
-                        </div>
-                        {/* Desktop: full table row */}
-                        <div className="hidden lg:grid grid-cols-[1fr_80px_120px_120px] gap-4 items-center">
-                          <p className="font-bold text-sm text-(--color-text)">
-                            {item.name || "—"}
-                          </p>
-                          <p className="font-bold text-sm text-(--color-muted) text-center">
-                            {item.quantity}
-                          </p>
-                          <p className="font-bold text-sm text-(--color-muted) text-right">
-                            {fmtCurrency(item.price)}
-                          </p>
-                          <p className="font-bold text-sm text-(--color-text) text-right">
-                            {fmtCurrency(
-                              item.total ?? item.quantity * item.price,
-                            )}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-sm text-(--color-muted) text-center py-2">
-                    No items
-                  </p>
-                )}
-              </div>
-
-              {/* Amount due */}
-              <div className="bg-(--bg-total) px-6 lg:px-8 py-6 flex items-center justify-between rounded-b-lg">
-                <p className="text-sm text-white/70">Amount Due</p>
-                <p className="text-2xl font-bold text-white">
-                  {fmtCurrency(total)}
-                </p>
-              </div>
+            <div>
+              <p className="text-xs text-(--color-muted) mb-2">Bill To</p>
+              <p className="font-bold text-sm text-(--color-text) mb-2">{clientName || "—"}</p>
+              <AddressBlock address={clientAddress} />
+            </div>
+            <div className="col-span-2 lg:col-span-1">
+              <InfoRow label="Sent to" value={clientEmail} />
             </div>
           </div>
         </div>
+
+        {/* Items card */}
+        <div className="bg-(--bg-card) rounded-lg overflow-hidden mb-4">
+          <div className="bg-(--bg-surface) p-6 lg:p-8">
+            {/* Table header — desktop only */}
+            <div className="hidden lg:grid grid-cols-[1fr_80px_120px_120px] gap-4 mb-5">
+              <span className="text-xs text-(--color-muted)">Item Name</span>
+              <span className="text-xs text-(--color-muted) text-center">QTY.</span>
+              <span className="text-xs text-(--color-muted) text-right">Price</span>
+              <span className="text-xs text-(--color-muted) text-right">Total</span>
+            </div>
+
+            {items.length > 0 ? (
+              <div className="flex flex-col gap-5">
+                {items.map((item, i) => (
+                  <div key={i}>
+                    {/* Mobile */}
+                    <div className="flex items-center justify-between lg:hidden">
+                      <div>
+                        <p className="font-bold text-sm text-(--color-text)">{item.name || "—"}</p>
+                        <p className="text-sm font-bold text-(--color-muted) mt-1">
+                          {item.quantity} &times; {fmtCurrency(item.price)}
+                        </p>
+                      </div>
+                      <p className="font-bold text-sm text-(--color-text)">
+                        {fmtCurrency(item.total ?? item.quantity * item.price)}
+                      </p>
+                    </div>
+                    {/* Desktop */}
+                    <div className="hidden lg:grid grid-cols-[1fr_80px_120px_120px] gap-4 items-center">
+                      <p className="font-bold text-sm text-(--color-text)">{item.name || "—"}</p>
+                      <p className="font-bold text-sm text-(--color-muted) text-center">{item.quantity}</p>
+                      <p className="font-bold text-sm text-(--color-muted) text-right">{fmtCurrency(item.price)}</p>
+                      <p className="font-bold text-sm text-(--color-text) text-right">
+                        {fmtCurrency(item.total ?? item.quantity * item.price)}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-(--color-muted) text-center py-2">No items</p>
+            )}
+          </div>
+
+          {/* Amount due */}
+          <div className="bg-(--bg-total) px-6 lg:px-8 py-6 flex items-center justify-between">
+            <p className="text-sm text-white/70">Amount Due</p>
+            <p className="text-2xl font-bold text-white">{fmtCurrency(total)}</p>
+          </div>
+        </div>
+
       </div>
 
       {/* Sticky footer — mobile/tablet only */}
