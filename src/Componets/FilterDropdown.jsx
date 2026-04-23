@@ -18,6 +18,7 @@ const FilterDropdown = ({ selected, onChange }) => {
         return (
           <label
             key={status}
+            onClick={() => toggle(status)}
             className="flex items-center gap-3 cursor-pointer mb-4 last:mb-0 select-none"
           >
             <span

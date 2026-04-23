@@ -17,14 +17,13 @@ const Navbar = () => {
 
       {/* Logo */}
       <div className={[
-        "bg-[#7C5CBF] flex items-center justify-center shrink-0 relative overflow-hidden",
+        "flex items-center justify-center shrink-0 relative overflow-hidden",
         // Mobile: square, left-flush, rounded bottom-right only
         "w-18 h-18 rounded-br-2xl",
         // Desktop: full-width strip at top
         "lg:w-full lg:h-20 lg:rounded-br-2xl",
       ].join(" ")}>
-        <img src={Logo} alt="Logo" className="w-9 h-9 object-contain z-10" />
-        <div className="absolute bottom-0 left-0 right-0 h-[28%] bg-[#9277FF]/30 rounded-tl-xl" />
+        <img src={Logo} alt="Logo" className="w-18 h-18 object-contain z-10" />
       </div>
 
       {/* Spacer */}
