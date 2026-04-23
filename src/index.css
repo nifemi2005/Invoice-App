@@ -9,6 +9,7 @@
   --color-border: #DFE3FA;
   --draft-color: #373B53;
   --draft-bg:    rgba(55, 59, 83, 0.06);
+  --bg-total:    #373B53;
 }
 
 [data-theme="dark"] {
@@ -20,4 +21,10 @@
   --color-border: #252945;
   --draft-color: #DFE3FA;
   --draft-bg:    rgba(223, 227, 250, 0.06);
+  --bg-total:    #0C0E16;
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] select {
+  color-scheme: dark;
 }

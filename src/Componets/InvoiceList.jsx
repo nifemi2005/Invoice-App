@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FiChevronDown, FiPlus } from "react-icons/fi";
 import Announce from "../assets/announce.png";
 import InvoiceCard from "./InvoiceCard";
@@ -19,6 +20,7 @@ const EmptyState = ({ isFiltering }) => (
 );
 
 const InvoiceList = ({ invoices = [] }) => {
+  const navigate = useNavigate();
   const [filterOpen, setFilterOpen] = useState(false);
   const [selectedStatuses, setSelectedStatuses] = useState([]);
   const filterRef = useRef(null);
@@ -74,7 +76,7 @@ const InvoiceList = ({ invoices = [] }) => {
           </div>
 
           {/* New button */}
-          <button className="flex items-center gap-2 bg-[#7C5CBF] hover:bg-[#9277FF] text-white font-bold pl-2 pr-4 py-2 rounded-full transition-colors">
+          <button onClick={() => navigate("/invoice/new")} className="flex items-center gap-2 bg-[#7C5CBF] hover:bg-[#9277FF] text-white font-bold pl-2 pr-4 py-2 rounded-full transition-colors">
             <span className="bg-white rounded-full w-8 h-8 flex items-center justify-center shrink-0">
               <FiPlus className="text-[#7C5CBF] text-lg" />
             </span>
